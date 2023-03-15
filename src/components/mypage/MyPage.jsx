@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { existCookie } from "../../utils/existCookie";
 import { FaWifi } from "react-icons/fa";
 import { RiRotateLockFill } from "react-icons/ri";
 import { ChatList, ChatOption, ChatWrap, Count, Footer, Options, RedDot } from "../chat/Chat";
 import { FirstBar, SecondBar, ThirdBar, TopBar } from "../home/Home";
 import fullBattery from "../../assets/images/배터리풀.png";
 import { BsPersonPlusFill, BsChat, BsGear, BsMusicNoteBeamed, BsFillPersonFill, BsSearch, BsThreeDots } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
 
-function MyPage() {
+function MyPage({ user }) {
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const cookie = existCookie();
+
+    if (!cookie) {
+      return navigate("/");
+    }
+  }, [navigate, pathname]);
+
   return (
     <ChatWrap>
       <TopBar>
@@ -31,6 +42,7 @@ function MyPage() {
           <BsGear className="gear" size="27" />
         </Options>
       </ChatOption>
+      <div>{user.name}</div>
       <Footer>
         <div>
           <BsFillPersonFill size="30" className="person" />
