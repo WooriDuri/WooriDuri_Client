@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ChatRoom from "../../components/chat/ChatRoom";
+import Chat from "../../components/chat/Chat";
 import Home from "../../components/home/Home";
+import MyPage from "../../components/mypage/MyPage";
 import SignUp from "../../components/sign/SignUp";
 
 function Router() {
@@ -9,8 +10,9 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/" Component={Home} />
-        <Route path="/chat" Component={ChatRoom} />
         <Route path="/signup" Component={SignUp} />
+        <Route path="/chat" Component={Chat} />
+        <Route path="/mypage" Component={MyPage} />
       </Routes>
     </BrowserRouter>
   );

@@ -5,6 +5,10 @@ import { useForm } from "react-hook-form";
 import { setAccessToken } from "../../shared/cookie/Cookie";
 import { toast } from "react-toastify";
 import { signin } from "../../apis/userApi";
+import { FaWifi } from "react-icons/fa";
+import { RiRotateLockFill } from "react-icons/ri";
+import lowBattery from "../../assets/images/배터리부족.png";
+import thunder from "../../assets/images/번개.png";
 
 function Home() {
   const navigate = useNavigate();
@@ -22,10 +26,12 @@ function Home() {
         const {
           data: { success },
         } = res;
+
         const token = res.data.data.token;
+
         if (success === true) {
           setAccessToken(token);
-          navigate("/chat");
+          navigate("/mypage");
         }
       } catch (err) {
         toast.error(err.response.data.errorMessage, {
@@ -49,8 +55,24 @@ function Home() {
 
   return (
     <Container>
-      <div style={{ margin: "50px auto", width: "100%", textAlign: "center" }}>여기는 홈화면임 로그인해줘</div>
-      <LoginForm onSubmit={handleSubmit(onSubmit)}>
+      <TopBar>
+        <FirstBar>
+          No Service <FaWifi className="wifi" />
+        </FirstBar>
+        <SecondBar>18:43</SecondBar>
+        <ThirdBar>
+          <RiRotateLockFill className="lock" size="20" />
+          <span>11%</span>
+          <img src={lowBattery} alt="battery" width={35} height={35} />
+          <img src={thunder} alt="thunder" width={15} height={18} />
+        </ThirdBar>
+      </TopBar>
+      <Welcome>
+        <p>Welcome to Woori-Duri</p>
+        <div>If you have a Woori-Duri Account,</div>
+        <div>log in with your email or phone number.</div>
+      </Welcome>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <EmailInput
           placeholder="이메일을 입력해주세요"
           {...register("email", {
@@ -66,9 +88,9 @@ function Home() {
         <p
           style={{
             margin: "7px auto",
-            width: "70%",
+            width: "92%",
             color: "#FF2D53",
-            fontSize: "0.8rem",
+            fontSize: "1rem",
             fontWeight: "400",
           }}
         >
@@ -98,7 +120,7 @@ function Home() {
         <p
           style={{
             margin: "7px auto",
-            width: "70%",
+            width: "92%",
             color: "#FF2D53",
             fontSize: "0.8rem",
             fontWeight: "400",
@@ -107,43 +129,141 @@ function Home() {
           {errors.password?.message}
         </p>
         <ButtonWrap>
-          <button>로그인</button>
-          <button onClick={onSignUp}>회원가입</button>
+          <LogIn>로그인</LogIn>
+          <SignUp onClick={onSignUp}>회원가입</SignUp>
         </ButtonWrap>
-      </LoginForm>
+      </Form>
     </Container>
   );
 }
 
 export default Home;
 
-const Container = styled.div`
-  width: 100%;
-  margin: auto;
-  overflow-y: hidden;
-`;
-
-const LoginForm = styled.form`
+export const Container = styled.div`
   width: 500px;
   margin: auto;
 `;
 
-const EmailInput = styled.input`
-  width: 70%;
-  height: 30px;
-  display: block;
-  margin: 0 auto;
+export const TopBar = styled.div`
+  display: grid;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-size: 18px;
+  font-weight: 600;
+  .wifi {
+    vertical-align: -2px;
+    margin-left: 3px;
+  }
+  .lock {
+    vertical-align: -4px;
+    margin-right: 6px;
+  }
 `;
 
+export const FirstBar = styled.div`
+  padding-top: 9px;
+`;
+
+export const SecondBar = styled.div`
+  text-align: center;
+  font-size: 17px;
+  font-weight: 800;
+  padding-top: 10px;
+`;
+
+export const ThirdBar = styled.div`
+  display: flex;
+  align-items: center;
+  padding-left: 48px;
+  img {
+    margin-left: 3px;
+  }
+`;
+
+const Welcome = styled.div`
+  width: 90%;
+  text-align: center;
+  margin: 80px auto;
+  p {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+  div {
+    margin-top: 5px;
+    font-size: 20px;
+    color: #888888;
+  }
+`;
+
+const Form = styled.form`
+  width: 90%;
+  margin: auto;
+`;
+const EmailInput = styled.input`
+  width: 100%;
+  padding: 15px;
+  font-size: 20px;
+  border-bottom: #888888 2px solid;
+  border-left: medium none;
+  border-right: medium none;
+  border-top: medium none;
+  :focus {
+    outline: none;
+  }
+`;
 const PasswordInput = styled.input`
-  width: 70%;
-  height: 30px;
-  display: block;
-  margin: 30px auto 0 auto;
+  width: 100%;
+  margin-top: 10px;
+  padding: 15px;
+  font-size: 20px;
+  border-bottom: #888888 2px solid;
+  border-left: medium none;
+  border-right: medium none;
+  border-top: medium none;
+  :focus {
+    outline: none;
+  }
 `;
 
 const ButtonWrap = styled.div`
+  width: 90%;
+  margin: auto;
+  p {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 17px;
+    cursor: pointer;
+    :hover {
+      opacity: 0.8;
+    }
+  }
+`;
+
+const LogIn = styled.button`
   width: 100%;
-  margin: 20px auto;
-  display: block;
+  height: 50px;
+  margin-top: 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  :hover {
+    opacity: 0.8;
+  }
+`;
+const SignUp = styled.button`
+  width: 100%;
+  height: 50px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  :hover {
+    opacity: 0.8;
+  }
 `;

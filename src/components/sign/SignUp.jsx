@@ -18,7 +18,6 @@ function SignUp() {
     async (data) => {
       try {
         const response = await signup(data);
-        console.log(response);
         if (response.status === 201) {
           toast.success(response.data.message, {
             position: "top-center",
