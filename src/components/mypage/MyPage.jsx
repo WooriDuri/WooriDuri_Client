@@ -37,7 +37,7 @@ function MyPage({ user }) {
         <ChatList>Mypage</ChatList>
         <Options>
           <BsSearch className="search" size="27" />
-          <BsPersonPlusFill className="person" size="30" style={{ marginLeft: "16px", marginTop: "-2px" }} />
+          <BsPersonPlusFill className="person" size="27" />
           <BsMusicNoteBeamed className="music" size="27" />
           <BsGear className="gear" size="27" />
         </Options>

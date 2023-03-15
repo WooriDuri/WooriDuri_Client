@@ -102,6 +102,10 @@ export const Options = styled.div`
     margin-left: 15px;
     cursor: pointer;
   }
+  .person {
+    margin-left: 20px;
+    cursor: pointer;
+  }
   .music {
     margin-left: 15px;
     cursor: pointer;
