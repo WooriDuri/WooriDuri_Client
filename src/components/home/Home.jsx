@@ -19,11 +19,11 @@ function Home() {
     async (data) => {
       try {
         const res = await signin(data);
-        console.log(res);
         const {
-          data: { success, token },
+          data: { success },
         } = res;
-        if (success === "true") {
+        const token = res.data.data.token;
+        if (success === true) {
           setAccessToken(token);
           navigate("/chat");
         }
@@ -106,11 +106,11 @@ function Home() {
         >
           {errors.password?.message}
         </p>
+        <ButtonWrap>
+          <button>로그인</button>
+          <button onClick={onSignUp}>회원가입</button>
+        </ButtonWrap>
       </LoginForm>
-      <ButtonWrap>
-        <button>로그인</button>
-        <button onClick={onSignUp}>회원가입</button>
-      </ButtonWrap>
     </Container>
   );
 }

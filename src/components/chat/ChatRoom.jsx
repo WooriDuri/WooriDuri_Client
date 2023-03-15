@@ -8,7 +8,7 @@ const ChatRoom = ({ roomId }) => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const newSocket = io("https://");
+    const newSocket = io("서버주소");
     setSocket(newSocket);
 
     return () => newSocket.disconnect();
